@@ -1,3 +1,5 @@
+import scala.language.implicitConversions
+
 class Rational(n: Int, d: Int) {
   require (d != 0)
 
@@ -43,12 +45,14 @@ class Rational(n: Int, d: Int) {
     if (b == 0) a else gcd(b, a % b)
 }
 
-val oneHalf = new Rational(1, 2)
-val twoThirds = new Rational(2, 3)
-val one = new Rational(1)
-oneHalf + twoThirds
-oneHalf max twoThirds
-new Rational(66, 42)
+object Rational extends App {
+    val oneHalf = new Rational(1, 2)
+    val twoThirds = new Rational(2, 3)
+    val one = new Rational(1)
+    println(oneHalf + twoThirds)
+    println(oneHalf max twoThirds)
+    new Rational(66, 42)
 
-implicit def intToRational(x: Int) = new Rational(x)
-2 * oneHalf
+    implicit def intToRational(x: Int) = new Rational(x)
+    println(2 * oneHalf)
+}
