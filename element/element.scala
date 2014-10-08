@@ -19,7 +19,17 @@ class ArrayElement(
   val contents: Array[String]
 ) extends Element
 
-class LineElement(s: String) extends ArrayElement(Array(s)) {
+class LineElement(s: String) extends Element {
+  val contents = Array(s)
   override def width = s.length
   override def height = 1
+}
+
+class UniformElement(
+  ch: Char,
+  override val width: Int,
+  override val height: Int
+) extends Element {
+  private val line = ch.toString * width
+  def contents = Array.fill(height)(line)
 }
