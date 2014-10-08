@@ -1,6 +1,10 @@
 object Element {
-  def element(value: String) =
-    new LineElement(value)
+  def element(line: String) =
+    new LineElement(line)
+  def element(ch: Char, width: Int, height: Int) =
+    new UniformElement(ch, width, height)
+  def element(contents: Array[String]) =
+    new ArrayElement(contents)
 
   def main(args: Array[String]) {
     val column1 = element("hello") above element("***")
