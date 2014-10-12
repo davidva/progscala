@@ -1,26 +1,28 @@
 object Element {
-  def element(line: String) =
+  def elem(line: String): Element =
     new LineElement(line)
-  def element(ch: Char, width: Int, height: Int) =
+  def elem(ch: Char, width: Int, height: Int): Element =
     new UniformElement(ch, width, height)
-  def element(contents: Array[String]) =
+  def elem(contents: Array[String]): Element =
     new ArrayElement(contents)
 
   def main(args: Array[String]) {
-    val column1 = element("hello") above element("***")
-    val column2 = element("***") above element("world")
+    val column1 = elem("hello") above elem("***")
+    val column2 = elem("***") above elem("world")
     println(column1 beside column2)
   }
 }
+
+import Element.elem
 
 abstract class Element {
   def contents: Array[String]
   def height: Int = contents.length
   def width: Int = if (height == 0) 0 else contents(0).length
   def above(that: Element): Element =
-    new ArrayElement(this.contents ++ that.contents)
+    elem(this.contents ++ that.contents)
   def beside(that: Element): Element = {
-    new ArrayElement(
+    elem(
       for (
         (line1, line2) <- this.contents zip that.contents
       ) yield line1 + line2
